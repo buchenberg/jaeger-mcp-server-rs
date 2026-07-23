@@ -1,0 +1,13 @@
+/target
+/dist
+**/*.rs.bk
+Cargo.lock.bak
+
+# env files
+.env
+.env.*
+!.env.example
+
+# editor
+.vscode/
+.idea/
