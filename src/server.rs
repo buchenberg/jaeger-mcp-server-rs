@@ -34,6 +34,7 @@ impl JaegerMcp {
 }
 
 #[derive(Debug, Deserialize, schemars::JsonSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct GetOperationsArgs {
     /// Filters operations by service name.
     pub service: String,
@@ -43,6 +44,7 @@ pub struct GetOperationsArgs {
 }
 
 #[derive(Debug, Deserialize, schemars::JsonSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct GetTraceArgs {
     /// OpenTelemetry-compatible trace id, 32-character hex string.
     pub trace_id: String,
@@ -55,6 +57,7 @@ pub struct GetTraceArgs {
 }
 
 #[derive(Debug, Deserialize, schemars::JsonSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct FindTracesArgs {
     /// Filters spans by service name.
     pub service_name: String,

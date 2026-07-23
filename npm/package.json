@@ -1,6 +1,6 @@
 {
   "name": "jaeger-mcp-server-rs",
-  "version": "0.2.0",
+  "version": "v0.3.0",
   "description": "MCP server for Jaeger distributed tracing (Rust binary)",
   "bin": {
     "jaeger-mcp-server": "./run.js"
