@@ -1,0 +1,20 @@
+{
+  "name": "jaeger-mcp-server-rs",
+  "version": "0.1.0",
+  "description": "MCP server for Jaeger distributed tracing (Rust binary)",
+  "bin": {
+    "jaeger-mcp-server": "./run.js"
+  },
+  "scripts": {
+    "postinstall": "node install.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buchenberg/jaeger-mcp-server-rs.git"
+  },
+  "keywords": ["mcp", "jaeger", "opentelemetry", "tracing", "observability"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
