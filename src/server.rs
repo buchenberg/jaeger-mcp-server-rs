@@ -14,9 +14,10 @@ use serde::Deserialize;
 
 use crate::{
     config::Config,
-    jaeger::{FindTracesQuery, JaegerClient},
+    jaeger::{FindTracesQuery, JaegerClient, JaegerError},
 };
 
+/// MCP server handler for Jaeger trace queries.
 #[derive(Clone)]
 pub struct JaegerMcp {
     client: JaegerClient,
@@ -167,7 +168,7 @@ impl ServerHandler for JaegerMcp {
     }
 }
 
-fn err(e: anyhow::Error) -> ErrorData {
+fn err(e: JaegerError) -> ErrorData {
     ErrorData::internal_error(e.to_string(), None)
 }
 
@@ -175,5 +176,42 @@ fn json_scalar_to_string(v: &serde_json::Value) -> String {
     match v {
         serde_json::Value::String(s) => s.clone(),
         other => other.to_string(),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn json_scalar_to_string_returns_string_as_is() {
+        assert_eq!(
+            json_scalar_to_string(&serde_json::Value::String("hello".into())),
+            "hello"
+        );
+    }
+
+    #[test]
+    fn json_scalar_to_string_stringifies_number() {
+        assert_eq!(
+            json_scalar_to_string(&serde_json::Value::Number(42.into())),
+            "42"
+        );
+    }
+
+    #[test]
+    fn json_scalar_to_string_stringifies_boolean() {
+        assert_eq!(
+            json_scalar_to_string(&serde_json::Value::Bool(true)),
+            "true"
+        );
+    }
+
+    #[test]
+    fn json_scalar_to_string_stringifies_null() {
+        assert_eq!(
+            json_scalar_to_string(&serde_json::Value::Null),
+            "null"
+        );
     }
 }

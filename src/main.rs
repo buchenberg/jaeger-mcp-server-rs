@@ -1,3 +1,10 @@
+//! jaeger-mcp-server
+//!
+//! An MCP server for querying Jaeger traces via the v3 HTTP API.
+//!
+//! The server reads MCP JSON-RPC on stdin and writes responses to stdout.
+//! All logs are sent to stderr.
+
 mod config;
 mod jaeger;
 mod server;
@@ -10,7 +17,6 @@ use crate::server::JaegerMcp;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // MCP uses stdout for JSON-RPC — send all logs to stderr.
     tracing_subscriber::fmt()
         .with_env_filter(
             EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info")),
